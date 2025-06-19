@@ -1,0 +1,11 @@
+{
+  "name": "flight_booking",
+  "version": "1.0.0",
+  "description": "a basic starter boiler plate for node",
+  "main": "index.js",
+  "scripts": {
+    
+  },
+  "author": "nandan",
+  "license": "ISC"
+}
