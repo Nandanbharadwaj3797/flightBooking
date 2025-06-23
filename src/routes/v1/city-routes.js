@@ -1,12 +1,12 @@
 const express = require('express');
-const {CityController} = require('../../controllers');
+const {CityController }= require('../../controllers');
+const {CityMiddlewares} = require('../../middlewares');
 
 const router = express.Router();
 
 // City Routes
-// POST /api/v1/cities
-router
-.post('/',
+router.post('/',
+    CityMiddlewares.validateCreateRequest,  // fixed typo here as well
     CityController.createCity
 );
 
