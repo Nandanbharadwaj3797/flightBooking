@@ -49,8 +49,43 @@ async function getAirplaneById(req, res) {
     }
 }
 
+/** * DELETE: /airplanes/:id
+ * req.params.id: string
+ * req-body{}
+ */
+
+async function distroyAirplane(req, res) {
+    try {
+        const response = await AirplaneService.distroyAirplane(req.params.id);
+        SuccessResponse.data = response;
+        return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+        ErrorResponse.error = error;
+        return res.status(error.statusCode).json(ErrorResponse);
+    }
+}
+
+/**
+ * PUT: /airplanes/:id
+ * req.params.id: string
+ * req.body{modelNumber: string, capacity: number}
+ */
+async function updateAirplane(req, res) {
+    try {
+        const response = await AirplaneService.updateAirplane(req.params.id, req.body);
+        SuccessResponse.data = response;
+        return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+        ErrorResponse.error = error;
+        return res.status(error.statusCode).json(ErrorResponse);
+    }
+}
+
+
 module.exports = { 
     createAirplane,
     getAirplanes,
-    getAirplaneById
+    getAirplaneById,
+    distroyAirplane,
+    updateAirplane
 };
