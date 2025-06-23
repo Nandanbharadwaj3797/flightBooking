@@ -6,7 +6,6 @@ const airplaneRoutes = require('./airplane-routes');
 
 const router = express.Router();
 
-console.log("Inside v1 routes index.js");
 
 router.use('/airplanes', airplaneRoutes);
 
