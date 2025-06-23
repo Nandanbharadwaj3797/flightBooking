@@ -8,11 +8,19 @@ const { AirplaneController } = require('../../controllers');
 // /api/v1/airplanes POST 
 router
 .post('/', 
-AirplaneMiddlewares.validateCreaterequest,AirplaneController.createAirplane);
+    AirplaneMiddlewares.validateCreaterequest,AirplaneController.createAirplane
+);
 
 // /api/v1/airplanes GET
 router
 .get('/',
-    AirplaneController.getAirplanes);
+    AirplaneController.getAirplanes
+);
+
+// /api/v1/airplanes/:id GET
+router
+.get('/:id',
+    AirplaneController.getAirplaneById
+);
 
 module.exports = router;
