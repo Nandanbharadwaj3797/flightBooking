@@ -6,8 +6,11 @@ const { FlightMiddlewares } = require('../../middlewares');
 // Define routes for flight operations
 // /api/v1/flights
 router.post('/',
-  FlightMiddlewares.validateFlightCreation,
+  FlightMiddlewares.validateCreateRequest,
   FlightController.createFlight
 );
-
+// GET: /api/v1/flights?trips=MUM-DEL
+router.get('/',
+  FlightController.getAllFlights
+);
 module.exports = router;

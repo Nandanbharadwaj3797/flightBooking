@@ -12,34 +12,30 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.Airplane, {
-        foreignKey: 'airplaneId'
+        foreignKey: 'airplaneId',
+        as:'airplaneDetails'
+
       });
       this.belongsTo(models.Airport, {
-        foreignKey: 'departureAirportId'
+        foreignKey: 'departureAirportId',
+        as: 'departureAirport'
       });
       this.belongsTo(models.Airport, {
-        foreignKey: 'arrivalAirportId'
+        foreignKey: 'arrivalAirportId',
+        as: 'arrivalAirport'
       });
     }
   }
   Flight.init({
-    
-    flightNumber:{
+    flightNumber: {
       type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
-      // validate: {
-      //   notEmpty: true,
-      //   is: /^[A-Z]{2}\d{3,4}$/ // E
-      // }
-
-    },
-    airplaneId:{
-      type: DataTypes.INTEGER,
       allowNull: false
     },
-
-    departureAirportId:{
+    airplaneId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    departureAirportId: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -47,39 +43,25 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    arrivalTime:{
+    arrivalTime: {
       type: DataTypes.DATE,
       allowNull: false
     },
-    departureTime:{
+    departureTime: {
       type: DataTypes.DATE,
       allowNull: false
     },
     price: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        isInt: true,
-        min: 0
-      }
+      allowNull: false
     },
-    boaringGate:{
-
+    boardingGate: {
       type: DataTypes.STRING
-      // validate: {
-      //   is: /^[A-Z0-9]{1,5}$/ // Example: A1, B2, C3D4
-      // }
     },
-    totalSeats:{
+    totalSeats: { // total remaining seats
       type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        isInt: true,
-        min: 1
-      }
+      allowNull: false
     },
-
-
   }, {
     sequelize,
     modelName: 'Flight',

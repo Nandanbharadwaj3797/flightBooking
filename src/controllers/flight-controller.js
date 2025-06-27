@@ -1,23 +1,8 @@
-const {StatusCodes}=require("http-status-codes");
-const {FlightService} = require("../services/index");
+const { StatusCodes } = require('http-status-codes');
 
-const{ErrorResponse, SuccessResponse} = require('../utils/common');
+const { FlightService } = require('../services');
+const { SuccessResponse, ErrorResponse } = require('../utils/common');
 
-/**
- * POST: /flights
- * request body: {
- *      flightNumber: string,
- *      airplaneId: number,
- *      departureAirportId: string,
- *      arrivalAirportId: string,
- *      departureTime: string,
- *      arrivalTime: string,
- *      price: number,
- *     boaringGate: string,
- *     totalSeats: number
- * 
- * }
- */
 
 async function createFlight(req, res) {
     try {
@@ -29,19 +14,59 @@ async function createFlight(req, res) {
             arrivalTime: req.body.arrivalTime,
             departureTime: req.body.departureTime,
             price: req.body.price,
-            boaringGate: req.body.boaringGate,
+            boardingGate: req.body.boardingGate,
             totalSeats: req.body.totalSeats
         });
-
         SuccessResponse.data = flight;
-        return res.status(StatusCodes.CREATED).json(SuccessResponse);
-
-    } catch (error) {
+        return res
+                .status(StatusCodes.CREATED)
+                .json(SuccessResponse);
+    } catch(error) {
         ErrorResponse.error = error;
-        return res.status(error.statusCode).json(ErrorResponse);
-  }
+        return res
+                .status(error.statusCode)
+                .json(ErrorResponse);
+    }
 }
 
+async function getAllFlights(req, res) {
+    try {
+        const flights = await FlightService.getAllFlights(req.query);
+        SuccessResponse.data = flights;
+        return res
+                .status(StatusCodes.CREATED)
+                .json(SuccessResponse);
+    } catch(error) {
+        ErrorResponse.error = error;
+        return res
+                .status(error.statusCode)
+                .json(ErrorResponse);
+    }
+}
+
+/**
+ * POST : /flights/:id 
+ * req-body {}
+ */
+async function getFlight(req, res) {
+    try {
+        const flight = await FlightService.getFlight(req.params.id);
+        SuccessResponse.data = flight;
+        return res
+                .status(StatusCodes.OK)
+                .json(SuccessResponse);
+    } catch(error) {
+        ErrorResponse.error = error;
+        return res
+                .status(error.statusCode)
+                .json(ErrorResponse);
+    }
+}
+
+
+
 module.exports = {
-    createFlight
-};
+    createFlight,
+    getAllFlights,
+    getFlight
+}
